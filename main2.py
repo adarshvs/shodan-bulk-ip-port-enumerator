@@ -17,8 +17,21 @@ for ip in ip_list:
         host = api.host(ip)
         
         # Extract and print open ports
-        print(f"Open ports for {ip}:")
+        result = f"Open ports for {ip}:\n"
         for port in host['ports']:
-            print(f"- {port}")
+            result += f"- {port}\n"
+        
+        # Print and save the result
+        print(result)
+        with open('output.txt', 'a') as output_file:
+            output_file.write(result)
     except shodan.APIError as e:
-        print(f"Error: {e}")
+        # Handle specific case where no information is available
+        if "No information available for that IP" in str(e):
+            error_message = f"Error: No information available for that IP ({ip}).\n"
+        else:
+            error_message = f"Error: {e} ({ip}).\n"
+        
+        print(error_message)
+        with open('output.txt', 'a') as output_file:
+            output_file.write(error_message)
