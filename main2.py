@@ -15,12 +15,17 @@ for ip in ip_list:
     try:
         # Perform Shodan IP lookup
         host = api.host(ip)
-        
-        # Extract and print open ports
-        result = f"Open ports for {ip}:\n"
-        for port in host['ports']:
-            result += f"- {port}\n"
-        
+
+        # Extract and print open ports with transport
+        ports = []
+        for service in host.get('data', []):
+            port = service.get('port')
+            transport = service.get('transport', '').upper()
+            ports.append(f"{port}/{transport}")
+
+        # Format the result as a comma-separated list
+        result = f"Open ports for {ip}:\n{', '.join(ports)}\n"
+
         # Print and save the result
         print(result)
         with open('output.txt', 'a') as output_file:
@@ -32,6 +37,12 @@ for ip in ip_list:
         else:
             error_message = f"Error: {e} ({ip}).\n"
         
+        print(error_message)
+        with open('output.txt', 'a') as output_file:
+            output_file.write(error_message)
+    except Exception as e:
+        # Handle any other exceptions, including unparseable JSON
+        error_message = f"Unexpected error for {ip}: {str(e)}\n"
         print(error_message)
         with open('output.txt', 'a') as output_file:
             output_file.write(error_message)
