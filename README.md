@@ -1,6 +1,13 @@
 # Shodan Bulk IP Port Enumerator
-This repository contains a Python script that performs IP lookups using the Shodan API, retrieves information about open ports for a list of IP addresses, and writes the results to an output file.
+This Python script uses the Shodan API to scan a list of IP addresses for open ports and logs the results into a CSV file. The script processes each IP one by one, printing the results in the terminal as it scans and immediately saving them into a CSV file.
 
+
+### Features:
+<p>  •	Real-time Output: Displays the open ports for each IP in the terminal as the scan progresses.
+<p>  •	Immediate Logging: Saves each IP's results to a CSV file (output.csv) right after processing.
+<p>  •	Error Handling: Logs IPs without available data and handles unexpected errors gracefully.
+<p>  •	Formatted CSV Output: Ports are listed neatly under the corresponding IP in the CSV file.
+  
 ### Prerequisites
 Before running the script, ensure you have the following:
 
@@ -38,7 +45,7 @@ API_KEY = 'YOUR_SHODAN_API_KEY'
 Execute the script using Python:
 
 ```bash
-python shodan_ip_lookup.py
+python shodan_to_csv_and_terminal.py
 ```
 
 ## Output
