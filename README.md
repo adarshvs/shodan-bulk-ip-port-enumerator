@@ -50,3 +50,15 @@ python shodan_to_csv_and_terminal.py
 
 ## Output
 The script creates or appends to an output.txt file in the same directory. This file contains the open ports for each IP address or error messages if the lookup fails.
+
+
+
+"""
+shodan_subnet_enum_live_excel_resume.py
+
+Fetch Shodan InternetDB info for each IP in a subnet and
+write results to Excel line-by-line (with resume support and retry-safe saving).
+
+Requirements:
+    pip install requests pandas openpyxl
+"""
